@@ -4,3 +4,6 @@
 [submodule "modules/database"]
 	path = modules/database
 	url = git://github.com/kohana/database.git
+[submodule "modules/jelly"]
+	path = modules/jelly
+	url = git://github.com/jonathangeiger/kohana-jelly.git
