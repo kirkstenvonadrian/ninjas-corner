@@ -3,6 +3,15 @@
 //-- Environment setup --------------------------------------------------------
 
 /**
+* Set the production status by the domain.
+* Note: the default value for Kohana::$environment is Kohana::DEVELOPMENT.
+*/
+if ($_SERVER['HTTP_HOST'] !== 'localhost')
+{
+	Kohana::$environment = Kohana::PRODUCTION;
+}
+
+/**
  * Set the default time zone.
  *
  * @see  http://kohanaframework.org/guide/using.configuration
@@ -50,7 +59,10 @@ ini_set('unserialize_callback_func', 'spl_autoload_call');
  * - boolean  caching     enable or disable internal caching                 FALSE
  */
 Kohana::init(array(
-	'base_url'   => '/ninjas-corner/',
+        'base_url'   => Kohana::$environment === Kohana::PRODUCTION ? '/' : '/ninjas-corner/',
+        'index_file' => FALSE,
+	'profile'    => Kohana::$environment !== Kohana::PRODUCTION,
+	'caching'    => Kohana::$environment === Kohana::PRODUCTION,
 ));
 
 /**
@@ -83,11 +95,16 @@ Kohana::modules(array(
  * Set the routes. Each route must have a minimum of a name, a URI and a set of
  * defaults for the URI.
  */
+if ( ! Route::cache())
+{
 Route::set('default', '(<controller>(/<action>(/<id>)))')
 	->defaults(array(
 		'controller' => 'welcome',
 		'action'     => 'index',
 	));
+// Cache the routes in production
+	Route::cache(Kohana::$environment === Kohana::PRODUCTION);
+}
 
 if ( ! defined('SUPPRESS_REQUEST'))
 {
