@@ -20,16 +20,20 @@
                 <p>
 
 			<?php if (Auth::instance()->logged_in()) { ?>
-				<?php if (Auth::instance()->logged_in()) { ?>
-					You are signed in as <?php echo HTML::chars($user->username) ?> —
+				<?php if (Auth::instance()->logged_in('applicant')) { ?>
+					You are signed in as applicant <?php echo HTML::chars($user->username) ?> —
 					<?php echo HTML::anchor(Route::get('user')->uri(array('action' => 'change_password')), 'Change password') ?> —
-				<?php } ?>
+				<?php } else { ?>
+                                        You are signed in as employer <?php echo HTML::chars($user->username) ?> —
+					<?php echo HTML::anchor(Route::get('user')->uri(array('action' => 'change_password')), 'Change password') ?> —
+				<?php }?>
 
 				<?php echo HTML::anchor(Route::get('user')->uri(array('action' => 'change_email')), 'Change email') ?> —
 				<?php echo HTML::anchor(Route::get('user')->uri(array('action' => 'signout')), 'Sign out') ?>
 			<?php } else { ?>
-				<?php echo HTML::anchor(Route::get('user')->uri(array('action' => 'signin')), 'Sign in') ?> or
-				<?php echo HTML::anchor(Route::get('user')->uri(array('action' => 'signup')), 'Sign up') ?>
+				<?php echo HTML::anchor(Route::get('user')->uri(array('action' => 'signin')), 'Sign in') ?> or Register as
+                                <?php echo HTML::anchor(Route::get('user')->uri(array('action' => 'signupemployer')), 'Employer') ?> |
+				<?php echo HTML::anchor(Route::get('user')->uri(array('action' => 'signup')), 'Jobseeker') ?>
 			<?php } ?>
 		</p>
 	</div><!-- #header -->

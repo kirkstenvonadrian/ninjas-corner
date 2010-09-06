@@ -45,8 +45,8 @@ class Controller_User extends Controller_Template_Website
         // The user is already logged in
         if ($this->auth->logged_in())
         {
-                Message::set(Message::NOTICE, 'If you want to sign up somebody else, please, sign out yourself first.');
-                $this->request->redirect('');
+            Message::set(Message::NOTICE, 'If you want to sign up somebody else, please, sign out yourself first.');
+            $this->request->redirect('');
         }
 
         // Show form
@@ -60,28 +60,73 @@ class Controller_User extends Controller_Template_Website
         // Check if the form was submitted
         if ($_POST)
         {
+            $user->set(Arr::extract($_POST, array(
+                    'email', 'username', 'password', 'password_confirm'
+            )));
 
-                $user->set(Arr::extract($_POST, array(
-                        'email', 'username', 'password', 'password_confirm'
-                )));
+            // Add the 'login' role to the user model
+            $user->add('roles', 1); // login role - always included
+            $user->add('roles', 2); // applicant role - attached when registered as applicant
 
-                // Add the 'login' role to the user model
-                $user->add('roles', 1);
+            try
+            {
+                    // Try to save our user model
+                    $user->save();
 
-                try
-                {
-                        // Try to save our user model
-                        $user->save();
+                    // Redirect to the index page
+                    Request::instance()->redirect('');
+            }
+            // There were errors saving our user model
+            catch (Validate_Exception $e)
+            {
+                    // Load custom error messages from `messages/forms/user/register.php`
+                    $errors = $e->array->errors('forms/user/register');
+            }
+        }
+    }
 
-                        // Redirect to the index page
-                        Request::instance()->redirect('dashboard');
-                }
-                // There were errors saving our user model
-                catch (Validate_Exception $e)
-                {
-                        // Load custom error messages from `messages/forms/user/register.php`
-                        $errors = $e->array->errors('forms/user/register');
-                }
+     public function action_signupemployer()
+    {
+        // The user is already logged in
+        if ($this->auth->logged_in())
+        {
+            Message::set(Message::NOTICE, 'If you want to sign up somebody else, please, sign out yourself first.');
+            $this->request->redirect('');
+        }
+
+        // Show form
+        $this->template->content = View::factory('user/signup')
+                ->bind('post', $post)
+                ->bind('errors', $errors);
+
+        // Create an instance of Model_Auth_User
+        $user = Jelly::factory('user');
+
+        // Check if the form was submitted
+        if ($_POST)
+        {
+            $user->set(Arr::extract($_POST, array(
+                    'email', 'username', 'password', 'password_confirm'
+            )));
+
+            // Add the 'login' role to the user model
+            $user->add('roles', 1); // login role - always included
+            $user->add('roles', 3); // applicant role - attached when registered as applicant
+
+            try
+            {
+                    // Try to save our user model
+                    $user->save();
+
+                    // Redirect to the index page
+                    Request::instance()->redirect('');
+            }
+            // There were errors saving our user model
+            catch (Validate_Exception $e)
+            {
+                    // Load custom error messages from `messages/forms/user/register.php`
+                    $errors = $e->array->errors('forms/user/register');
+            }
         }
     }
 
@@ -89,8 +134,8 @@ class Controller_User extends Controller_Template_Website
     {
         if ( ! $this->auth->logged_in())
         {
-                Message::set(Message::NOTICE, 'Take it easy. You are already signed out.');
-                $this->request->redirect('');
+            Message::set(Message::NOTICE, 'Take it easy. You are already signed out.');
+            $this->request->redirect('');
         }
 
         $this->auth->logout();
