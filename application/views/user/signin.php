@@ -1,8 +1,12 @@
 <h1>Sign in</h1>
-
 <?php echo Form::open() ?>
 
-	<?php include Kohana::find_file('views', 'partials/errors') ?>
+<?php if($error): ?>
+    <br/>
+	<ul class="errors">
+  	<li>Your username or password is incorrect.</li>
+	</ul>
+<?php endif; ?>
 
 	<p>
 		<?php echo Form::label('username', 'Your username:') ?>

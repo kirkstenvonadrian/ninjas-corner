@@ -26,8 +26,8 @@
 				<?php echo HTML::anchor(Route::get('user')->uri(array('action' => 'signout')), 'Sign out') ?>
 			<?php } else { ?>
 				<?php echo HTML::anchor(Route::get('user')->uri(array('action' => 'signin')), 'Sign in') ?> or Register as
-                                <?php echo HTML::anchor(Route::get('user')->uri(array('action' => 'employer')), 'Employer') ?> |
-				<?php echo HTML::anchor(Route::get('user')->uri(array('action' => 'jobseeker')), 'Jobseeker') ?>
+                                <?php echo HTML::anchor(Route::get('user')->uri(array('action' => 'register_employer')), 'Employer') ?> |
+				<?php echo HTML::anchor(Route::get('user')->uri(array('action' => 'register_jobseeker')), 'Jobseeker') ?>
 			<?php } ?>
 		</p>
 	</div><!-- #header -->
@@ -39,9 +39,21 @@
 
         <div id="sidebar">
             <?php if(Auth::instance()->logged_in('applicant')) {?>
-            You Are An Applicant
+            <ul>
+                <li>Jobs Applied (2)</li>
+                <li>Edit Profile</li>
+                <li>Change Password</li>
+                <li>Change Email</li>
+                <li>Sign out</li>
+            </ul>
             <?php } elseif(Auth::instance()->logged_in('employer')) {?>
-            You are a Employer
+            <ul>
+                <li>Jobs Posted (5)</li>
+                <li>Edit Profile</li>
+                <li>Change Password</li>
+                <li>Change Email</li>
+                <li>Sign out</li>
+            </ul>
             <?php }?>
 
             This is the side bar

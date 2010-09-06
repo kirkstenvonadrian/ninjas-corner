@@ -14,7 +14,7 @@ class Controller_User extends Controller_Template_Website
         // Show sign in form
         $this->template->content = View::factory('user/signin')
                 ->bind('post', $post) // Used to repopulate form fields
-                ->bind('errors', $errors);
+                ->bind('error', $error);
 
         // No login error by default
         $error = FALSE;
@@ -40,7 +40,7 @@ class Controller_User extends Controller_Template_Website
         }
     }
 
-    public function action_jobseeker()
+    public function action_register_jobseeker()
     {
         // The user is already logged in
         if ($this->auth->logged_in())
@@ -50,7 +50,7 @@ class Controller_User extends Controller_Template_Website
         }
 
         // Show form
-        $this->template->content = View::factory('user/jobseeker')
+        $this->template->content = View::factory('user/register_jobseeker')
                 ->bind('post', $post)
                 ->bind('errors', $errors);
 
@@ -87,7 +87,7 @@ class Controller_User extends Controller_Template_Website
         }
     }
 
-     public function action_employer()
+     public function action_register_employer()
     {
         // The user is already logged in
         if ($this->auth->logged_in())
@@ -97,7 +97,7 @@ class Controller_User extends Controller_Template_Website
         }
 
         // Show form
-        $this->template->content = View::factory('user/employer')
+        $this->template->content = View::factory('user/register_employer')
                 ->bind('post', $post)
                 ->bind('errors', $errors);
 
