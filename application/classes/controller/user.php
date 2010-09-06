@@ -20,7 +20,6 @@ class Controller_User extends Controller_Template_Website
         $error = FALSE;
 
         // Check if the form was submitted
-        // Check if the form was submitted
         if ($_POST)
         {
                 // See if user checked 'Stay logged in'
@@ -55,21 +54,35 @@ class Controller_User extends Controller_Template_Website
                 ->bind('post', $post)
                 ->bind('errors', $errors);
 
-        // Form submitted
-        if ($_POST)
-        {
-                // Try to sign the user up
-                if ($this->user->signup($post = $_POST))
-                {
-                        // Automatically log the user in
-                        $this->auth->force_login($post['username']);
+        // Create an instance of Model_Auth_User
+		$user = Jelly::factory('user');
 
-                        Message::set(Message::SUCCESS, 'Thanks for signin up. You are now logged in.');
-                        $this->request->redirect('');
-                }
+		// Check if the form was submitted
+		if ($_POST)
+		{
 
-                $errors = $post->errors();
-        }
+			$user->set(Arr::extract($_POST, array(
+				'email', 'username', 'password', 'password_confirm'
+			)));
+
+			// Add the 'login' role to the user model
+			$user->add('roles', 1);
+
+			try
+			{
+				// Try to save our user model
+				$user->save();
+
+				// Redirect to the index page
+				Request::instance()->redirect('');
+			}
+			// There were errors saving our user model
+			catch (Validate_Exception $e)
+			{
+				// Load custom error messages from `messages/forms/user/register.php`
+				$errors = $e->array->errors('forms/user/register');
+			}
+		}
     }
 
     public function action_signout()

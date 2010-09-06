@@ -2,6 +2,6 @@
 
 <ul class="errors">
 	<?php foreach ($errors as $field => $error) { ?>
-		<li><?php echo $field, ': ', Kohana::debug($error) ?></li>
+		<li><?php echo $error ?></li>
 	<?php } ?>
 </ul>
