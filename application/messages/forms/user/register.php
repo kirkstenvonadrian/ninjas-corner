@@ -6,8 +6,8 @@ return array
 	'username' => array
 	(
 		'regex'         => 'Your username does not match the required format.',
-		'unique'        => 'Your username already exists.',
-		'not_empty'     => 'Your username cannot be blank.',
+		'unique'        => 'Username already exists.',
+		'not_empty'     => 'Username cannot be blank.',
 		'min_length'    => 'Your username must be at least :param1 characters long.',
 		'max_length'    => 'Your username must be less than :param1 characters long.',
 
@@ -16,8 +16,8 @@ return array
 
 	'email' => array
 	(
-		'email'         => 'Your email address is invalid.',
-		'unique'        => 'Your email address already exists.',
+		'email'         => 'Email address is invalid.',
+		'unique'        => 'Email address already exists.',
 
 		'default'       => 'There was an unknown error with your email address.',
 	),
@@ -25,18 +25,18 @@ return array
 	'password' => array
 	(
 		'not_empty'     => 'Your password cannot be blank.',
-		'min_length'    => 'Your password must be at least :param1 characters long.',
-		'max_length'    => 'Your password must be less than :param1 characters long.',
+		'min_length'    => 'Password must be at least :param1 characters long.',
+		'max_length'    => 'Password must be less than :param1 characters long.',
 
 		'default'       => 'There was an unknown error with your password.',
 	),
 
 	'password_confirm' => array
 	(
-		'not_empty'     => 'Your password confirmation cannot be blank.',
-		'min_length'    => 'Your password confirmation must be at least :param1 characters long.',
-		'max_length'    => 'Your password confirmation must be less than :param1 characters long.',
-		'matches'       => 'Your password confirmation does not match your password.',
+		'not_empty'     => 'Password confirmation cannot be blank.',
+		'min_length'    => 'Password confirmation must be at least :param1 characters long.',
+		'max_length'    => 'Password confirmation must be less than :param1 characters long.',
+		'matches'       => 'Password confirmation does not match your password.',
 
 		'default'       => 'There was an unknown error with your password confirmation.',
 	),

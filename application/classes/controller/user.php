@@ -55,34 +55,34 @@ class Controller_User extends Controller_Template_Website
                 ->bind('errors', $errors);
 
         // Create an instance of Model_Auth_User
-		$user = Jelly::factory('user');
+        $user = Jelly::factory('user');
 
-		// Check if the form was submitted
-		if ($_POST)
-		{
+        // Check if the form was submitted
+        if ($_POST)
+        {
 
-			$user->set(Arr::extract($_POST, array(
-				'email', 'username', 'password', 'password_confirm'
-			)));
+                $user->set(Arr::extract($_POST, array(
+                        'email', 'username', 'password', 'password_confirm'
+                )));
 
-			// Add the 'login' role to the user model
-			$user->add('roles', 1);
+                // Add the 'login' role to the user model
+                $user->add('roles', 1);
 
-			try
-			{
-				// Try to save our user model
-				$user->save();
+                try
+                {
+                        // Try to save our user model
+                        $user->save();
 
-				// Redirect to the index page
-				Request::instance()->redirect('');
-			}
-			// There were errors saving our user model
-			catch (Validate_Exception $e)
-			{
-				// Load custom error messages from `messages/forms/user/register.php`
-				$errors = $e->array->errors('forms/user/register');
-			}
-		}
+                        // Redirect to the index page
+                        Request::instance()->redirect('dashboard');
+                }
+                // There were errors saving our user model
+                catch (Validate_Exception $e)
+                {
+                        // Load custom error messages from `messages/forms/user/register.php`
+                        $errors = $e->array->errors('forms/user/register');
+                }
+        }
     }
 
     public function action_signout()
