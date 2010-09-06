@@ -14,44 +14,21 @@
 	<?php echo Message::render() ?>
 
 	<div style="padding:1em; background:yellow; text-align:center;">
-		<strong>KohanaJobs v2 is still under construction.</strong><br />
-		<a href="http://www.kohanajobs.com/">Go to v1</a> or <a href="http://github.com/GeertDD/kohanajobs">Follow v2 development</a>
+		<strong>Ninjas-Corner is still under construction.</strong><br />
 	</div>
 
 	<div id="header">
-		<p id="identity">KohanaJobs</p>
-
-		<p>
-			<?php //echo HTML::anchor(Route::get('jobs')->uri(), 'Home') ?> —
-			<?php// echo HTML::anchor(Route::get('post')->uri(), 'Post a new job') ?> —
-
-			<?php //if (Auth::instance()->logged_in()) { ?>
-
-				<?php //if (Auth::instance()->logged_in_oauth()) { ?>
-					You signed in via OAuth —
-				<?php //} else { ?>
-					You are signed in as <?php// echo HTML::chars($user->username) ?> —
-					<?php //echo HTML::anchor(Route::get('user')->uri(array('action' => 'change_password')), 'Change password') ?> —
-				<?php// } ?>
-
-				<?php// echo HTML::anchor(Route::get('user')->uri(array('action' => 'change_email')), 'Change email') ?> —
-				<?php //echo HTML::anchor(Route::get('user')->uri(array('action' => 'signout')), 'Sign out') ?>
-			<?php// }// else { ?>
-				<?php //echo HTML::anchor(Route::get('user')->uri(array('action' => 'signin')), 'Sign in') ?> or
-				<?php// echo HTML::anchor(Route::get('user')->uri(array('action' => 'signup')), 'Sign up') ?>
-			<?php //} ?>
-		</p>
+		<p id="identity">Ninjas Corner</p>
 	</div><!-- #header -->
 
 	<div id="content">
-		<?php// echo $content ?>
+		<?php echo $content ?>
 	</div><!-- #content -->
 
 	<div id="footer">
 		<p>
-			© 2008–<?php echo date('Y') ?> —
-			Powered by <a href="http://kohanaframework.org/">Kohana</a> v<?php echo Kohana::VERSION ?> —
-			<?php echo HTML::anchor('http://github.com/GeertDD/kohanajobs', 'KohanaJobs at GitHub') ?>
+			© <?php echo date('Y') ?> —
+			Powered by <a href="http://kohanaframework.org/">Kohana</a> v<?php echo Kohana::VERSION ?> 
 		</p>
 	</div><!-- #footer -->
 
