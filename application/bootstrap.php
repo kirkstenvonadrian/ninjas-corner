@@ -60,7 +60,6 @@ ini_set('unserialize_callback_func', 'spl_autoload_call');
  */
 Kohana::init(array(
         'base_url'   => Kohana::$environment === Kohana::PRODUCTION ? '/' : '/ninjas-corner/',
-        'index_file' => FALSE,
 	'profile'    => Kohana::$environment !== Kohana::PRODUCTION,
 	'caching'    => Kohana::$environment === Kohana::PRODUCTION,
 ));
@@ -87,7 +86,7 @@ Kohana::modules(array(
 	// 'image'      => MODPATH.'image',      // Image manipulation
 	// 'oauth'      => MODPATH.'oauth',      // OAuth authentication
 	 'pagination'  => MODPATH.'pagination', // Paging of results
-        'message'       => MODPATH.'message',       // Jelly ORM
+         'message'       => MODPATH.'message',       // Jelly ORM
 	));
 
 /**
@@ -96,7 +95,13 @@ Kohana::modules(array(
  */
 if ( ! Route::cache())
 {
-Route::set('default', '(<controller>(/<action>(/<id>)))')
+    // User system related
+    Route::set('user', 'user/<action>')
+		->defaults(array(
+			'controller' => 'user',
+			'action'     => 'index',
+		));
+    Route::set('default', '(<controller>(/<action>(/<id>)))')
 	->defaults(array(
 		'controller' => 'welcome',
 		'action'     => 'index',

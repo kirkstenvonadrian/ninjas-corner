@@ -10,7 +10,7 @@ abstract class Controller_Template_Website extends Controller_Template {
 	// Auth instance
 	protected $auth;
 
-	// The currently active user (ORM object)
+	// The currently active user
 	protected $user;
 
 	/**
@@ -25,7 +25,13 @@ abstract class Controller_Template_Website extends Controller_Template {
 
 		// Load Auth instance
 		$this->auth = Auth::instance();
-
+                
+                // Get the currently logged in user or set up a new one.
+		// Note that get_user will also do an auto_login check.
+		if (($this->user = $this->auth->get_user()) === FALSE)
+		{
+			$this->user = Jelly::factory('user');
+		}
 		
 		if ($this->auto_render)
 		{

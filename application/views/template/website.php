@@ -11,17 +11,31 @@
 </head>
 <body>
 
-	<?php echo Message::render() ?>
-
 	<div style="padding:1em; background:yellow; text-align:center;">
 		<strong>Ninjas-Corner is still under construction.</strong><br />
 	</div>
 
 	<div id="header">
 		<p id="identity">Ninjas Corner</p>
+                <p>
+
+			<?php if (Auth::instance()->logged_in()) { ?>
+				<?php if (Auth::instance()->logged_in()) { ?>
+					You are signed in as <?php echo HTML::chars($user->username) ?> —
+					<?php echo HTML::anchor(Route::get('user')->uri(array('action' => 'change_password')), 'Change password') ?> —
+				<?php } ?>
+
+				<?php echo HTML::anchor(Route::get('user')->uri(array('action' => 'change_email')), 'Change email') ?> —
+				<?php echo HTML::anchor(Route::get('user')->uri(array('action' => 'signout')), 'Sign out') ?>
+			<?php } else { ?>
+				<?php echo HTML::anchor(Route::get('user')->uri(array('action' => 'signin')), 'Sign in') ?> or
+				<?php echo HTML::anchor(Route::get('user')->uri(array('action' => 'signup')), 'Sign up') ?>
+			<?php } ?>
+		</p>
 	</div><!-- #header -->
 
 	<div id="content">
+            	<?php echo Message::render() ?>
 		<?php echo $content ?>
 	</div><!-- #content -->
 
