@@ -40,7 +40,7 @@ class Controller_User extends Controller_Template_Website
         }
     }
 
-    public function action_signup()
+    public function action_jobseeker()
     {
         // The user is already logged in
         if ($this->auth->logged_in())
@@ -50,7 +50,7 @@ class Controller_User extends Controller_Template_Website
         }
 
         // Show form
-        $this->template->content = View::factory('user/signup')
+        $this->template->content = View::factory('user/jobseeker')
                 ->bind('post', $post)
                 ->bind('errors', $errors);
 
@@ -87,7 +87,7 @@ class Controller_User extends Controller_Template_Website
         }
     }
 
-     public function action_signupemployer()
+     public function action_employer()
     {
         // The user is already logged in
         if ($this->auth->logged_in())
@@ -97,7 +97,7 @@ class Controller_User extends Controller_Template_Website
         }
 
         // Show form
-        $this->template->content = View::factory('user/signupemployer')
+        $this->template->content = View::factory('user/employer')
                 ->bind('post', $post)
                 ->bind('errors', $errors);
 

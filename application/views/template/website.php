@@ -6,7 +6,7 @@
 	<meta charset="utf-8" />
 	<title><?php echo HTML::chars($title) ?></title>
 
-	<link rel="stylesheet" href="<?php echo URL::site('media/css/ninjas-corner.css') ?>" />
+	<link rel="stylesheet" href="<?php echo URL::site('../media/css/ninjas-corner.css') ?>" />
 
 </head>
 <body>
@@ -20,20 +20,14 @@
                 <p>
 
 			<?php if (Auth::instance()->logged_in()) { ?>
-				<?php if (Auth::instance()->logged_in('applicant')) { ?>
-					You are signed in as applicant <?php echo HTML::chars($user->username) ?> —
+					Hello, <?php echo HTML::chars($user->username) ?> —
 					<?php echo HTML::anchor(Route::get('user')->uri(array('action' => 'change_password')), 'Change password') ?> —
-				<?php } else { ?>
-                                        You are signed in as employer <?php echo HTML::chars($user->username) ?> —
-					<?php echo HTML::anchor(Route::get('user')->uri(array('action' => 'change_password')), 'Change password') ?> —
-				<?php }?>
-
 				<?php echo HTML::anchor(Route::get('user')->uri(array('action' => 'change_email')), 'Change email') ?> —
 				<?php echo HTML::anchor(Route::get('user')->uri(array('action' => 'signout')), 'Sign out') ?>
 			<?php } else { ?>
 				<?php echo HTML::anchor(Route::get('user')->uri(array('action' => 'signin')), 'Sign in') ?> or Register as
-                                <?php echo HTML::anchor(Route::get('user')->uri(array('action' => 'signupemployer')), 'Employer') ?> |
-				<?php echo HTML::anchor(Route::get('user')->uri(array('action' => 'signup')), 'Jobseeker') ?>
+                                <?php echo HTML::anchor(Route::get('user')->uri(array('action' => 'employer')), 'Employer') ?> |
+				<?php echo HTML::anchor(Route::get('user')->uri(array('action' => 'jobseeker')), 'Jobseeker') ?>
 			<?php } ?>
 		</p>
 	</div><!-- #header -->
@@ -43,6 +37,15 @@
 		<?php echo $content ?>
 	</div><!-- #content -->
 
+        <div id="sidebar">
+            <?php if(Auth::instance()->logged_in('applicant')) {?>
+            You Are An Applicant
+            <?php } elseif(Auth::instance()->logged_in('employer')) {?>
+            You are a Employer
+            <?php }?>
+
+            This is the side bar
+        </div><!-- End Sidebar-->
 	<div id="footer">
 		<p>
 			© <?php echo date('Y') ?> —
