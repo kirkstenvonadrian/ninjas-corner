@@ -32,6 +32,8 @@
 		</p>
 	</div><!-- #footer -->
 
+        <p>
+        <!-- Dont Delete - needed for Development -->
 	<?php if (Kohana::$environment !== Kohana::PRODUCTION) { ?>
 		<div id="kohana-profiler">
 			<?php echo View::factory('profiler/stats') ?>
@@ -42,6 +44,7 @@
 			<!-- <p>$_SERVER = <?php echo Kohana::debug($_SERVER) ?></p> -->
 		</div><!-- #kohana-profiler -->
 	<?php } ?>
-
+        <!-- End Profiling-->
+        </p>
 </body>
 </html>
