@@ -1,4 +1,4 @@
-<h1>Sign up</h1>
+<h1>Jobseekers Registration</h1>
 
 <?php echo Form::open() ?>
 

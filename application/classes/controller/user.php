@@ -73,8 +73,10 @@ class Controller_User extends Controller_Template_Website
                     // Try to save our user model
                     $user->save();
 
+                    Message::set(Message::SUCCESS, 'You are now registered! Please signin below');
+                    
                     // Redirect to the index page
-                    Request::instance()->redirect('');
+                    Request::instance()->redirect('user/signin');
             }
             // There were errors saving our user model
             catch (Validate_Exception $e)
@@ -95,7 +97,7 @@ class Controller_User extends Controller_Template_Website
         }
 
         // Show form
-        $this->template->content = View::factory('user/signup')
+        $this->template->content = View::factory('user/signupemployer')
                 ->bind('post', $post)
                 ->bind('errors', $errors);
 
@@ -111,15 +113,16 @@ class Controller_User extends Controller_Template_Website
 
             // Add the 'login' role to the user model
             $user->add('roles', 1); // login role - always included
-            $user->add('roles', 3); // applicant role - attached when registered as applicant
+            $user->add('roles', 3); // employer role - attached when registered as employer
 
             try
             {
                     // Try to save our user model
                     $user->save();
 
+                    Message::set(Message::SUCCESS, 'You are now registered! Please signin below');
                     // Redirect to the index page
-                    Request::instance()->redirect('');
+                    Request::instance()->redirect('user/signin');
             }
             // There were errors saving our user model
             catch (Validate_Exception $e)
