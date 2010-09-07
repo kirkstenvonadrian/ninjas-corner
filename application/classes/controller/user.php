@@ -56,6 +56,8 @@ class Controller_User extends Controller_Template_Website
 
         // Create an instance of Model_Auth_User
         $user = Jelly::factory('user');
+        // Create an instance of Model_Applicant
+        $applicant = Jelly::factory('applicant');
 
         // Check if the form was submitted
         if ($_POST)
@@ -64,6 +66,13 @@ class Controller_User extends Controller_Template_Website
                     'email', 'username', 'password', 'password_confirm'
             )));
 
+            $applicant->set(Arr::extract($_POST, array(
+                    ''
+            )));
+
+            // Save the user id into applicants table
+            $applicant->user = $user->id;
+            
             // Add the 'login' role to the user model
             $user->add('roles', 1); // login role - always included
             $user->add('roles', 2); // applicant role - attached when registered as applicant
@@ -72,6 +81,8 @@ class Controller_User extends Controller_Template_Website
             {
                     // Try to save our user model
                     $user->save();
+                    // Try to save out applicant model
+                    $applicant->save();
 
                     Message::set(Message::SUCCESS, 'You are now registered! Please signin below');
                     
@@ -99,10 +110,14 @@ class Controller_User extends Controller_Template_Website
         // Show form
         $this->template->content = View::factory('user/register_employer')
                 ->bind('post', $post)
+                ->bind('employer', $employer)
                 ->bind('errors', $errors);
 
         // Create an instance of Model_Auth_User
         $user = Jelly::factory('user');
+
+        // Create an instance of Model_Employer
+        $employer = Jelly::factory('employer');
 
         // Check if the form was submitted
         if ($_POST)
@@ -111,25 +126,59 @@ class Controller_User extends Controller_Template_Website
                     'email', 'username', 'password', 'password_confirm'
             )));
 
+            $employer->set(Arr::extract($_POST, array(
+                    'company', 'description', 'website', 'person', 'address', 'city', 'zipcode', 'country',
+                    'telephone'
+            )));
+
             // Add the 'login' role to the user model
             $user->add('roles', 1); // login role - always included
             $user->add('roles', 3); // employer role - attached when registered as employer
 
-            try
-            {
-                    // Try to save our user model
-                    $user->save();
+            // Validate Employer data fields
+            // This is a manual check because I cant find any way to do this with jelly using 2 models
+            $field = Validate::factory($_POST)
+                ->filter(TRUE, 'trim')
+                ->rule('company', 'not_empty')
+                ->rule('description', 'not_empty')
+                ->rule('website', 'not_empty')
+                ->rule('website', 'url')
+                ->rule('person', 'not_empty')
+                ->rule('address', 'not_empty')
+                ->rule('city', 'not_empty')
+                ->rule('zipcode', 'not_empty')
+                ->rule('zipcode', 'numeric')
+                ->rule('country', 'not_empty')
+                ->rule('telephone', 'not_empty');
+            
+            if($field->check()) {
+                try
+                    {
+                        // Try to save our user model
+                        $user->save();
 
-                    Message::set(Message::SUCCESS, 'You are now registered! Please signin below');
-                    // Redirect to the index page
-                    Request::instance()->redirect('user/signin');
+                        // Save User Id to Employer table
+                        $employer->user = $user->id;
+
+                        // Try to save our employer model
+                        $employer->save();
+
+                        Message::set(Message::SUCCESS, 'You are now registered! Please signin below');
+                        // Redirect to the index page
+                        Request::instance()->redirect('user/signin');
+                    }
+                    // There were errors saving our user model
+                    catch (Validate_Exception $e)
+                    {
+                        // Load custom error messages from `messages/forms/user/register.php`
+                        $errors = $e->array->errors('forms/user/register');
+                    }
+
+            } else {
+                // There were errors while posting the employers field - show errors
+                $errors = $field->errors('forms/user/register');
             }
-            // There were errors saving our user model
-            catch (Validate_Exception $e)
-            {
-                    // Load custom error messages from `messages/forms/user/register.php`
-                    $errors = $e->array->errors('forms/user/register');
-            }
+
         }
     }
 
