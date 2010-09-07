@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 06, 2010 at 07:24 PM
+-- Generation Time: Sep 07, 2010 at 01:02 PM
 -- Server version: 5.1.48
 -- PHP Version: 5.3.3
 
@@ -20,6 +20,49 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 
 -- --------------------------------------------------------
+
+--
+-- Table structure for table `applicants`
+--
+
+CREATE TABLE IF NOT EXISTS `applicants` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `city` varchar(255) NOT NULL,
+  `country` varchar(255) NOT NULL,
+  `telephone` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `applicants`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `employers`
+--
+
+CREATE TABLE IF NOT EXISTS `employers` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `company` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `website` varchar(255) NOT NULL,
+  `person` varchar(255) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `city` varchar(255) NOT NULL,
+  `zipcode` varchar(255) NOT NULL,
+  `country` varchar(255) NOT NULL,
+  `telephone` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unig_user_id` (`user_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+
 
 --
 -- Table structure for table `roles`
@@ -55,7 +98,6 @@ CREATE TABLE IF NOT EXISTS `roles_users` (
   KEY `fk_role_id` (`role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
 --
 -- Table structure for table `users`
 --
@@ -70,8 +112,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uniq_username` (`username`),
   UNIQUE KEY `uniq_email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
-
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=26 ;
 
 --
 -- Table structure for table `user_tokens`
