@@ -20,8 +20,8 @@
                 <p>
 
 			<?php if (Auth::instance()->logged_in()) { ?>
-					Hello, <?php echo HTML::chars($user->username) ?> —
-					<?php echo HTML::anchor(Route::get('user')->uri(array('action' => 'change_password')), 'Change password') ?> —
+                                Hello, <?php echo HTML::chars($user->username) ?> —
+                                <?php echo HTML::anchor(Route::get('user')->uri(array('action' => 'change_password')), 'Change password') ?> —
 				<?php echo HTML::anchor(Route::get('user')->uri(array('action' => 'change_email')), 'Change email') ?> —
 				<?php echo HTML::anchor(Route::get('user')->uri(array('action' => 'signout')), 'Sign out') ?>
 			<?php } else { ?>
@@ -42,12 +42,14 @@
             <ul>
                 <li>Jobs Applied (2)</li>
                 <li>Edit Profile</li>
+                <li>Edit Resume</li>
                 <li>Change Password</li>
                 <li>Change Email</li>
                 <li>Sign out</li>
             </ul>
             <?php } elseif(Auth::instance()->logged_in('employer')) {?>
             <ul>
+                <li>Post A Job</li>
                 <li>Jobs Posted (5)</li>
                 <li>Edit Profile</li>
                 <li>Change Password</li>

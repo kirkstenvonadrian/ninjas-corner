@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 06, 2010 at 12:39 PM
+-- Generation Time: Sep 06, 2010 at 07:24 PM
 -- Server version: 5.1.48
 -- PHP Version: 5.3.3
 
@@ -38,9 +38,9 @@ CREATE TABLE IF NOT EXISTS `roles` (
 --
 
 INSERT INTO `roles` (`id`, `name`, `description`) VALUES
-(1, 'login', 'Unconfirmed user, granted immediately when signin up.'),
-(2, 'user', 'Confirmed user, granted after account confirmation via e-mail.'),
-(3, 'admin', 'Administrative user, has access to everything.');
+(1, 'login', 'Application role, granted immediately when signin up.'),
+(2, 'applicant', 'Applicant, granted immediately upon signing in applicant page'),
+(3, 'employer', 'Employer role, granted immediately upon signing in employer page');
 
 -- --------------------------------------------------------
 
@@ -55,15 +55,6 @@ CREATE TABLE IF NOT EXISTS `roles_users` (
   KEY `fk_role_id` (`role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `roles_users`
---
-
-INSERT INTO `roles_users` (`user_id`, `role_id`) VALUES
-(1, 1),
-(2, 1);
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `users`
@@ -79,17 +70,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uniq_username` (`username`),
   UNIQUE KEY `uniq_email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
 
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `email`, `username`, `password`, `logins`, `last_login`) VALUES
-(1, 'james.louie.puro@gmail.com', 'codegenin', '3a52f12b608b175e53fffb93e7bdd399c6b911c56ceaefe0ef', 3, 1283790453),
-(2, 'as@adf.com', 'gerald', 'e569d6cb6ea4182b5f829dda43a0310d16177f070df9a74574', 2, 1283791089);
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `user_tokens`
